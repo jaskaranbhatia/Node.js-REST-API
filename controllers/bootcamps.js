@@ -32,11 +32,25 @@ exports.getBootcamp = asyncHandler(async (req, res, next) => {
 // @route -> POST /api/bootcamps/create_bootcamp
 // @access -> Public
 exports.createBootcamp = asyncHandler(async (req, res, next) => {
+    // Add user to req.body
+    req.body.user = req.user.id
+    
     const bootcamp = await Bootcamp.create(req.body);
     res.status(201).json({
         success: true,
         data: bootcamp
     });
+});
+
+exports.getBootcampById = asyncHandler(async (req, res, next) => {
+    const bootcamp = await Bootcamp.find({user : req.params.id});
+    if(!bootcamp){
+        return next(new ErrorResponse(`Bootcamp not found with user id of ${req.params.id}`, 404));
+    }
+    res.status(200).json({
+        success: true,
+        data: bootcamp
+    })
 });
 
 // @desc -> update single bootcamp
