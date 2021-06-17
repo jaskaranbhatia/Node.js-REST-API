@@ -1,5 +1,6 @@
 const express = require('express');
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
+const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db')
 const errorHandler = require('./middleware/error')
 
@@ -10,14 +11,19 @@ connectDB();
 
 //Route Files
 const bootcamps = require('./routes/bootcamps');
+const auth = require('./routes/auth');
 
 const app = express();
 
 //Middleware Body Parser
 app.use(express.json());
 
+//Cookie Parser
+app.use(cookieParser());
+
 //Mount Router
 app.use('/api/bootcamps', bootcamps);
+app.use('/api/auth', auth);
 
 //Error Handler Middleware
 app.use(errorHandler)
