@@ -1,6 +1,7 @@
 const express = require('express');
 const dotenv = require('dotenv')
 const connectDB = require('./config/db')
+const errorHandler = require('./middleware/error')
 
 dotenv.config({path : './config/config.env'});
 
@@ -17,6 +18,9 @@ app.use(express.json());
 
 //Mount Router
 app.use('/api/bootcamps', bootcamps);
+
+//Error Handler Middleware
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 
