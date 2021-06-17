@@ -12,6 +12,9 @@ const bootcamps = require('./routes/bootcamps');
 
 const app = express();
 
+//Middleware Body Parser
+app.use(express.json());
+
 //Mount Router
 app.use('/api/bootcamps', bootcamps);
 
