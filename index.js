@@ -11,6 +11,7 @@ connectDB();
 
 //Route Files
 const bootcamps = require('./routes/bootcamps');
+const courses = require('./routes/course');
 const auth = require('./routes/auth');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(cookieParser());
 //Mount Router
 app.use('/api/bootcamps', bootcamps);
 app.use('/api/auth', auth);
+app.use('/api/course', courses)
 
 //Error Handler Middleware
 app.use(errorHandler)
